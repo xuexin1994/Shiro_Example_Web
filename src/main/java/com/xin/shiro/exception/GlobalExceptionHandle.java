@@ -19,14 +19,15 @@ public class GlobalExceptionHandle extends AbstractHandlerExceptionResolver {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandle.class);
 
+    @Override
     protected ModelAndView doResolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception ex) {
         CustomerException customerException =null;
         ModelAndView mv = new ModelAndView();
-        if (ex instanceof AuthenticationException){
+        /*if (ex instanceof AuthenticationException){
             mv.addObject("error", ex.getClass().getName()+"-->"+ex.getMessage());
             mv.setViewName("login");
             return mv;
-        }else if(ex instanceof CustomerException){//1.判断是否是预期的异常还是运行时的异常
+        }else*/ if(ex instanceof CustomerException){//1.判断是否是预期的异常还是运行时的异常
             //2.如果是预期的异常则直接返回信息
             customerException = (CustomerException)ex;
         }else{//3.如果是运行时的异常
