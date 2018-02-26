@@ -9,36 +9,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author xuexin
  * @date 2018/2/23
  */
 @Controller
-public class UserController {
-    @RequestMapping("/login")
-    public String login(Model model) {
-        model.addAttribute("message", "登陆成功");
-        return "forward:index.jsp";
+public class NoPrefixController {
+    @RequestMapping("/index")
+    public String index(Model model) {
+        return "index";
     }
 
-    @RequestMapping("/toLogin")
-    public String toLogin(Model model) {
-        model.addAttribute("message", "登陆成功");
+    @RequestMapping("/login")
+    public String login(Model model, HttpServletRequest request) {
         return "login";
     }
 
     @ResponseBody
     @RequestMapping("/{path}")
     public JSONObject echo(@PathVariable("path") String path,
-                            HttpServletRequest request) {
+                           HttpServletRequest request) {
         Map<String, String[]> parameterMap = request.getParameterMap();
         JSONObject object = new JSONObject();
-        object.put("path",path);
-        object.put("resultMessage","success");
+        object.put("path", path);
+        object.put("resultMessage", "success");
         for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
-            object.put(entry.getKey(),entry.getValue());
+            object.put(entry.getKey(), entry.getValue());
         }
         return object;
     }
