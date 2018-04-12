@@ -1,6 +1,10 @@
 package com.xin.shiro.web.contorller;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,14 +20,31 @@ import java.util.Map;
  */
 @Controller
 public class NoPrefixController {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(NoPrefixController.class);
+
     @RequestMapping("/index")
-    public String index(Model model) {
+    public String index(Model model, HttpServletRequest request) {
         return "index";
     }
 
     @RequestMapping("/login")
     public String login(Model model, HttpServletRequest request) {
+        if (request.getParameter("username") != null && request.getParameter("password") != null) {
+            model.addAttribute("error", "用户名或密码错误");
+        }
+        LOGGER.debug("用户名或密码错误");
+        LOGGER.info("用户名或密码错误------");
         return "login";
+    }
+
+    @RequestMapping("/register")
+    public String register(Model model, HttpServletRequest request) {
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.getPrincipal() == null) {
+            return "register";
+        }
+        return "index";
     }
 
     @ResponseBody

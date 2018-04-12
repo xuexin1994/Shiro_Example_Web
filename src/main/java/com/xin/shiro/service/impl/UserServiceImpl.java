@@ -1,7 +1,10 @@
 package com.xin.shiro.service.impl;
 
+import com.xin.shiro.dao.UserDao;
 import com.xin.shiro.entity.User;
 import com.xin.shiro.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
@@ -9,9 +12,12 @@ import java.util.Set;
  * @author xuexin
  * @date 2018/2/22
  */
+@Service
 public class UserServiceImpl implements UserService {
-    public User createUser(User user) {
-        return null;
+    @Autowired
+    private UserDao userDao;
+    public boolean createUser(User user) {
+        return userDao.insert(user);
     }
 
     public void changePassword(Long userId, String newPassword) {
@@ -27,7 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public User findByUsername(String username) {
-        return null;
+        return userDao.findByUsername(username);
     }
 
     public Set<String> findRoles(String username) {

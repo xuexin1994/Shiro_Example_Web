@@ -1,7 +1,5 @@
 package com.xin.shiro.dao;
 
-import com.sun.istack.internal.NotNull;
-
 /**
  * @author xuexin
  * @date 2018/2/23
@@ -30,5 +28,5 @@ public interface BaseDao<T> {
      * @param id 实体主键
      * @return 删除结果（true/false）
      */
-    boolean delete(@NotNull Integer id);
+    boolean delete(Integer id);
 }

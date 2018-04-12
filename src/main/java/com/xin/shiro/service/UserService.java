@@ -14,7 +14,7 @@ public interface UserService {
      *
      * @param user
      */
-    User createUser(User user);
+    boolean createUser(User user);
 
     /**
      * 修改密码

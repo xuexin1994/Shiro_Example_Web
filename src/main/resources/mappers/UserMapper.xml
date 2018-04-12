@@ -26,8 +26,15 @@
         WHERE username = #{username}
     </select>
 
-    <insert id="insert" useGeneratedKeys="true"  keyProperty="id">
-        INSERT INTO users (username,password,salt,locked)
-      VALUES (#{username}, #{password},#{salt},#{locked})
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.xin.shiro.entity.User">
+        INSERT INTO users(
+          username,
+          password,
+          salt
+        )VALUE (
+          #{username},
+          #{password},
+          #{salt}
+        )
     </insert>
 </mapper>
